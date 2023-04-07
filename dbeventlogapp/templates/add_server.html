@@ -1,0 +1,70 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% include 'navbar2.html' %}
+
+
+<div class="buttontext">
+	<br>
+	<h1><strong>{{ title }}</strong></h1>
+	<br>
+	<a href="/" class="btn btn-primary" role="button" aria-disabled="true">Home</a>
+	<a href="/list_server" class="btn btn-primary" role="button" aria-disabled="true">List Server</a>
+	<br>
+	<br>
+</div>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'js/bootstrap.min.js' %}" type="text/javascript" rel="stylesheet">
+	<link href="{% static 'css/stylesheet.css' %}" type="text/css" rel="stylesheet">
+	<title>{{title}}</title>
+</head>
+<body>
+    <div class="myForm">
+	<form method='POST' action=''>
+    {% csrf_token %}
+    <div class="row">
+	<div class="form-group col-md-3">
+            {{ form.Application|as_crispy_field }}
+        </div>    
+        <div class="form-group col-md-3">
+            {{ form.ServerType|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form.DBType|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form.ServerName|as_crispy_field }}
+        </div>
+        <div class="EnteredBy col-md-3">
+            {{ form.DBVersion|as_crispy_field }}
+        </div>
+        <div class="EnteredBy col-md-3">
+            {{ form.HostName|as_crispy_field }}
+        </div>
+        <div class="EnteredBy col-md-3">
+            {{ form.HostIP|as_crispy_field }}
+        </div>
+        <div class="EnteredBy col-md-3">
+            {{ form.HostVersion|as_crispy_field }}
+        </div>
+        <div class="VIPName col-md-3">
+            {{ form.VIPName|as_crispy_field }}
+        </div>
+        <div class="Memory col-md-3">
+            {{ form.Memory|as_crispy_field }}
+        </div>
+        <div class="vCPUs col-md-3">
+            {{ form.vCPUs|as_crispy_field }}
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    </div>
+</body>
+</html>

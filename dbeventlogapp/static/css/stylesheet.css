@@ -1,0 +1,97 @@
+body {
+	background-color: #86d0da;
+}
+
+
+.main-container{
+    width: 98%;
+    margin: auto;
+}
+
+.myForm{
+    width: 98%;
+    margin: auto;
+    font-size: 130%;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+  
+}
+
+.buttontext{
+    background-color: #eee5aa;
+    text-align: center;
+    font-family:'Courier New', Courier, monospace;
+
+}
+
+.myclass{
+    text-align: center;
+    border-style: solid;
+    font-weight: bold;
+}
+
+
+/*Align the title to the center of the page*/
+.table{
+    counter-reset: serial-number;
+	font-size: 110%;
+	text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	width: 98%;
+	margin: auto;
+	text-align: left;
+    border: 1px solid black;
+    border-style: solid black;
+    
+}
+
+.table td:first-child:before{
+    counter-increment: serial-number;
+    content: counter(serial-number);
+}
+
+/*Make alternating colors for the table rows*/
+.table tr:nth-child(odd){
+	background: #cbdaee
+}
+
+.table tr:nth-child(even){
+	background: #dae5f4
+}
+
+.table, th, td {
+    border: 1px solid black;
+}
+
+.lp{
+    text-align: right;
+    font-family: 'Courier New', Courier, monospace;
+    position: absolute;
+    top: 2;
+    right: 0;
+}
+
+.lc{
+    text-align: left;
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace;
+    top: 10%;
+    right: 10%;
+    margin: auto;
+}
+
+.hd{
+    font-family:'Courier New', Courier, monospace;
+    text-align: center;
+    text-decoration: underline;
+    font-weight: bold;
+
+    
+}
+
+.headline{
+    text-align: left;
+    position: absolute;
+    font-family: cursive;
+    font-style: normal;
+}

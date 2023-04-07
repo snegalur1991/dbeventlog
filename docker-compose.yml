@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  app:
+    build: .
+    container_name: PEVENTLOGAPP01
+    hostname: appeventdb
+    depends_on:
+      - db
+    env_file:
+      - var.env
+    ports:
+      - '8000:8000'
+    expose:
+      - '8000'
+    networks:
+      - event-network
+    command: 
+      - /bin/bash
+      - -c
+      - |
+        python manage.py migrate
+        python manage.py runserver 0.0.0.0:8000
+
+  db:
+    image: mysql:8.0
+    container_name: PEVENTLOGDB01
+    restart: always
+    hostname: mysqleventdb
+    env_file:
+      - var.env
+    ports:
+      - '3306:3306'   
+    expose:
+      - '3306'
+    networks:
+      - event-network
+    command: mysqld --default-authentication-plugin=mysql_native_password
+
+networks:
+  event-network:

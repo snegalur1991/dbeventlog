@@ -1,0 +1,63 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% include 'navbar2.html' %}
+
+<div class="buttontext">
+  <br>
+  <h1><strong>{{ title }}</strong></h1>
+  <br>
+  <a href="/" class="btn btn-primary" role="button" aria-disabled="true">Home</a>
+  <a href="/add_site" class="btn btn-primary" role="button" aria-disabled="true">Add Site</a>
+  <br>
+  <br>
+</div>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'js/bootstrap.min.js' %}" type="text/javascript" rel="stylesheet">
+	<link href="{% static 'css/stylesheet.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="main-container">
+	<div class="myForm">
+		<form method='POST' action=''>
+		{% csrf_token %}
+    <div class="row">
+      <div class="form-group col-md-6">
+          {{ form.SiteName|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-6">
+          {{ form.URL_Link|as_crispy_field }}
+      </div>
+    </div>
+    <br>
+    <div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+		</form>
+	</div>
+
+  <table class='table'>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Site_Name</th>
+          <th>URL_Link</th>
+        </tr>
+      </thead>
+    {% for instance in queryset %}
+        <tr>
+          <td></td>
+          <td>{{instance.SiteName}}</td>
+          <td><a href={{instance.URL_Link}}>{{instance.URL_Link}}</a></td>
+        </tr>
+    {% endfor %}
+  </table>
+	
+</div>
+</body>
+</html>

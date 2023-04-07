@@ -1,0 +1,89 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% include 'navbar2.html' %}
+
+<div class="buttontext">
+	<br>
+	<h1><strong>{{ title }}</strong></h1>
+	<br>
+	<a href="/" class="btn btn-primary" role="button" aria-disabled="true">Home</a>
+	<a href="/add_event" class="btn btn-primary" role="button" aria-disabled="true">Add Event</a>
+	<br>
+	<br>
+</div>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'js/bootstrap.min.js' %}" type="text/javascript" rel="stylesheet">
+	<link href="{% static 'css/stylesheet.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div class="main-container">
+	<div class="myForm">
+		<form method='POST' action='' >
+		{% csrf_token %}	
+		<div class="row">
+			<div class="form-group col-md-3 mb-0">
+				{{ form.HostName|as_crispy_field }}
+			</div>
+			<div class="form-group col-md-3 mb-0">
+				{{ form.ServerName|as_crispy_field }}
+			</div>
+			<div class="form-group col-md-3">
+				{{ form.ServerType|as_crispy_field }}
+			</div>
+			<div class="form-group col-md-3">
+				{{ form.PerformedBy|as_crispy_field }}
+			</div>
+			<div class="form-group col-md-3">
+				{{ form.PerformedAt }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-12">
+				{{ form.Comments|as_crispy_field }}
+			</div>
+		</div>
+			<br>
+			<div class="form-group col-md-2">
+				<button type="submit"  class="btn btn-primary">Search</button>
+			</div>
+		</form>
+	  </div>
+
+    <table class='table'>
+        <thead>
+          <tr>
+			<th>No</th>
+            <th>HostName</th>
+            <th>ServerName</th>
+            <th>EnteredBy</th>
+			<th>PerformedBy</th>
+            <th>Entered_Datetime</th>
+			<th>Performed_Datetime</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+      {% for instance in queryset %}
+          <tr>
+			<td></td>
+            <td>{{instance.HostName}}</td>
+            <td>{{instance.ServerName|upper}}</td>
+            <td>{{instance.EnteredBy}}</td>
+			<td>{{instance.PerformedBy}}</td>
+            <td>{{instance.CreatedOn|date:"Y-m-d H:i"}}</td>
+			<td>{{instance.PerformedAt|date:"Y-m-d H:i"}}</td>
+            <td>{{instance.Comments|safe|urlize}}</td>
+			
+          </tr>
+      {% endfor %}
+    </table>	
+</div>
+</body>
+</html>
+
+
+

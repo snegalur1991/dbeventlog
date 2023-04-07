@@ -1,0 +1,26 @@
+<!--users/templates/registration/login.html-->
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br>
+<br>
+
+<center><img src="{% static "img/sinch.jpg" %}" alt="Company Logo" srcset="" style="width:350px;height:80px;"></center>
+
+<br>
+<br>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <input class="btn btn-primary" type="submit" value="Login">
+    <a href="{% url 'password_reset' %}" class="btn btn-primary" role="button" aria-disabled="true">Forgot Password</a>
+</form>
+
+
+{% endblock %}
+

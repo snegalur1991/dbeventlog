@@ -1,0 +1,133 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% include 'navbar2.html' %}
+
+<div class="buttontext">
+  <br>
+  <h1><strong>{{ title }}</strong></h1>
+  <br>
+  <a href="/" class="btn btn-primary" role="button" aria-disabled="true">Home</a>
+  <a href="/add_server" class="btn btn-primary" role="button" aria-disabled="true">Add Server</a>
+  <a href="/list_server" class="btn btn-primary" role="button" aria-disabled="true">List Server</a>
+  <br>
+  <br>
+</div>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+	<link href="{% static 'js/bootstrap.min.js' %}" type="text/javascript" rel="stylesheet">
+	<link href="{% static 'css/stylesheet.css' %}" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/4.1.0/css/fixedColumns.dataTables.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/searchpanes/2.0.2/css/searchPanes.dataTables.min.css"/>
+</head>
+<body>
+<div class="main-container">
+	<div class="myForm">
+		<form method='POST' action=''>
+		{% csrf_token %}
+    <div class="row">
+      <div class="form-group col-md-2">
+	  {{ form.Application|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-2">
+          {{ form.ServerType|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-2">
+          {{ form.DBType|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-3">
+          {{ form.ServerName|as_crispy_field }}
+      </div>
+      <div class="form-group col-md-3">
+          {{ form.HostName|as_crispy_field }}
+      </div>
+    </div>
+    <br>
+    <div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+		</form>
+	</div>
+
+  <table id="table1" class='table'>
+      <thead>
+        <tr>
+          <th>No</th>
+	  <th>App</th>
+          <th>ServerType</th>
+          <th>DBType</th>
+          <th>ServerName</th>
+          <th>DBVersion</th>
+          <th>HostName</th>
+          <th>HostIP</th>
+          <th>HostVersion</th>
+          <th>VIPName</th>
+          <th>Memory</th>
+          <th>CPUs</th>
+	  <th>Actions</th>
+        </tr>
+      </thead>
+    {% for instance in queryset %}
+        <tr>
+          <td></td>
+	  <td>{{instance.Application}}</td>
+          <td>{{instance.ServerType}}</td>
+          <td>{{instance.DBType}}</td>
+          <td>{{instance.ServerName|upper}}</td>
+          <td>{{instance.DBVersion}}</td>
+          <td>{{instance.HostName}}</td>
+          <td>{{instance.HostIP}}</td>
+          <td>{{instance.HostVersion}}</td>
+          <td>{{instance.VIPName}}</td>
+          <td>{{instance.Memory}}</td>
+          <td>{{instance.vCPUs}}</td>
+	  <td><a href="{% url 'update_server' instance.id %}" class="btn btn-primary btn-xs">Update</a>
+		<a href="{% url 'delete_server' instance.id %}" class="btn btn-danger btn-xs">Delete</a></td>
+        </tr>
+    {% endfor %}
+  </table>
+	
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/4.1.0/js/dataTables.fixedColumns.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/searchpanes/2.0.2/js/dataTables.searchPanes.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+
+
+<script type="text/javascript">
+  $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-primary btn-sm'
+	$(document).ready(function() {
+    var table = $('#table1').DataTable( {
+        dom: 'Blfrtips',
+	"paging": false,
+	"autoWidth": false,
+        select: true,
+        buttons: [
+            { extend: 'copy', exportOptions: { columns: ':visible' }},
+            { extend: 'excel', exportOptions: { columns: ':visible' }},
+            { extend: 'csv', exportOptions: { columns: ':visible' }},
+            { extend: 'pdf', exportOptions: { columns: ':visible' }},
+            'colvis'
+        ]
+		} );
+	} );
+</script>
+
+
+</body>
+</html>
